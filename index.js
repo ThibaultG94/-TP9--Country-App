@@ -37,11 +37,13 @@ window.addEventListener("load", () => {
 
 inputRange.addEventListener("input", (e) => {
   rangeValue.innerHTML = e.target.value;
-  countryDisplay();
 });
 
-// 4 - Créer une fonction d'affichage, et paramétrer l'affichage des cartes de chaque pays grace à la méthode MAP
+inputSearch.addEventListener("input", (e) => {
+  console.log(e.target.value);
+});
 
+console.log(inputSearh.value);
 // 5 - Récupérer ce qui est tapé dans l'input et filtrer (avant le map) les données
 // coutry.name.includes(inputSearch.value);
 

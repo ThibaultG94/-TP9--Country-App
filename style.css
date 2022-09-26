@@ -35,7 +35,7 @@ input[type="range"] {
 .countries-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .country-container {
@@ -46,10 +46,11 @@ input[type="range"] {
   text-align: center;
   border-radius: 20px;
   flex-grow: 1;
+  min-width: 200px;
 }
 
 .country-container img {
-  height: 200px;
+  height: 35%;
 }
 
 h2 {
