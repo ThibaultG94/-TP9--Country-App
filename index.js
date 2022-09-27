@@ -1,6 +1,5 @@
 let countries = [];
 const countriesContainer = document.querySelector(".countries-container");
-const filterContainer = document.querySelector(".filter-container");
 
 async function fetchCountry() {
   await fetch("https://restcountries.com/v3.1/all")
@@ -10,7 +9,7 @@ async function fetchCountry() {
   // console.log(countries);
 }
 
-async function countryDisplay() {
+async function countryDisplay(tri) {
   await fetchCountry();
 
   countriesContainer.innerHTML = countries
@@ -20,7 +19,13 @@ async function countryDisplay() {
         .includes(inputSearch.value.toLowerCase())
     )
     .sort((a, b) => {
-      return parseFloat(b.population) - parseFloat(a.population);
+      if (tri == "decroissant") {
+        return parseFloat(b.population) - parseFloat(a.population);
+      } else if (tri == "croissant") {
+        return parseFloat(a.population) - parseFloat(b.population);
+      } else if ((tri = "alphabetique")) {
+        // return parseFloat(a.name.common) - parseFloat(b.name.common);
+      }
     })
     .slice(0, rangeValue.textContent)
     .map((country) => {
@@ -42,15 +47,24 @@ async function countryDisplay() {
 }
 
 window.addEventListener("load", () => {
-  countryDisplay();
+  countryDisplay("decroissant");
 });
 
 inputRange.addEventListener("input", (e) => {
   rangeValue.innerHTML = e.target.value;
+  countryDisplay("decroissant");
 });
 
-filterContainer.addEventListener("input", () => {
-  countryDisplay();
+minToMax.addEventListener("click", () => {
+  countryDisplay("croissant");
+});
+
+maxToMin.addEventListener("click", () => {
+  countryDisplay("decroissant");
+});
+
+alpha.addEventListener("click", () => {
+  countryDisplay("alphabetique");
 });
 
 // 7 - Gérer les 3 boutons pour trier (méthode sort()) les pays
