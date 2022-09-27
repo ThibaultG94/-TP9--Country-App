@@ -13,6 +13,11 @@ async function countryDisplay() {
   await fetchCountry();
 
   countriesContainer.innerHTML = countries
+    .filter((country) =>
+      country.name.common
+        .toLowerCase()
+        .includes(inputSearch.value.toLowerCase())
+    )
     .map((country) => {
       let countryPopulation = country.population;
       countryPopulation = countryPopulation
@@ -39,13 +44,9 @@ inputRange.addEventListener("input", (e) => {
   rangeValue.innerHTML = e.target.value;
 });
 
-inputSearch.addEventListener("input", (e) => {
-  console.log(e.target.value);
+inputSearch.addEventListener("input", () => {
+  countryDisplay();
 });
-
-console.log(inputSearh.value);
-// 5 - Récupérer ce qui est tapé dans l'input et filtrer (avant le map) les données
-// coutry.name.includes(inputSearch.value);
 
 // 6 - Avec la méthode Slice gérer le nombre de pays affichés (inputRange.value)
 
