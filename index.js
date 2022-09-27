@@ -6,14 +6,14 @@ async function fetchCountry() {
   await fetch("https://restcountries.com/v3.1/all")
     .then((res) => res.json())
     .then((data) => (countries = data));
+
+  countryDisplay("decroissant");
 }
 
 async function countryDisplay(tri) {
-  await fetchCountry();
-
   countriesContainer.innerHTML = countries
     .filter((country) =>
-      country.name.common
+      country.translations.fra.common
         .toLowerCase()
         .includes(inputSearch.value.toLowerCase())
     )
@@ -26,8 +26,8 @@ async function countryDisplay(tri) {
         return parseFloat(a.population) - parseFloat(b.population);
       } else if ((tri = "alphabetique")) {
         triValue = "alphabetique";
-        let x = a.name.common.toLowerCase();
-        let y = b.name.common.toLowerCase();
+        let x = a.translations.fra.common.toLowerCase();
+        let y = b.translations.fra.common.toLowerCase();
         return x < y ? -1 : x > y ? 1 : 0;
       }
     })
@@ -40,8 +40,8 @@ async function countryDisplay(tri) {
         .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
       return `
         <div class="country-container">
-            <img src="${country.flags.png}" alt="Drapeau de ${country.name.common}">
-            <h2>${country.name.common}</h2>
+            <img src="${country.flags.svg}" alt="drapeau de ${country.translations.fra.common}">
+            <h2>${country.translations.fra.common}</h2>
             <h4>${country.capital}</h4>
             <p>Population : ${countryPopulation}</p>
         </div>
@@ -51,11 +51,15 @@ async function countryDisplay(tri) {
 }
 
 window.addEventListener("load", () => {
-  countryDisplay("decroissant");
+  fetchCountry();
 });
 
 inputRange.addEventListener("input", (e) => {
   rangeValue.innerHTML = e.target.value;
+  countryDisplay(triValue);
+});
+
+inputSearch.addEventListener("input", () => {
   countryDisplay(triValue);
 });
 

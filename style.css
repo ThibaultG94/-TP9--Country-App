@@ -50,7 +50,9 @@ input[type="range"] {
 }
 
 .country-container img {
-  height: 35%;
+  height: 100px;
+  width: 160px;
+  object-fit: cover;
 }
 
 h2 {
